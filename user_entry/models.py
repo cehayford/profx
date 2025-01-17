@@ -14,6 +14,9 @@ class ProgLanguage(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
 
+    def __str__(self):
+        return self.name
+    
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
@@ -31,7 +34,10 @@ class OtherLanguage(models.Model):
 class Tools(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
-
+    
+    def __str__(self):
+        return self.name
+    
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
@@ -40,6 +46,9 @@ class Tools(models.Model):
 class Databases(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -50,17 +59,20 @@ class Frameworks(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
 
+    def __str__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
 class Skills(models.Model):
-    language = models.ForeignKey(ProgLanguage, on_delete=models.CASCADE, related_name='skills')
-    other_language = models.ForeignKey(OtherLanguage, on_delete=models.CASCADE, related_name='skills')
-    tool = models.ForeignKey(Tools, on_delete=models.CASCADE, related_name='skills')
-    database = models.ForeignKey(Databases, on_delete=models.CASCADE, related_name='skills')
-    framework = models.ForeignKey(Frameworks, on_delete=models.CASCADE, related_name='skills')
+    language = models.ForeignKey(ProgLanguage, on_delete=models.CASCADE, related_name='prog_language_skills')
+    other_language = models.ForeignKey(OtherLanguage, on_delete=models.CASCADE, related_name='other_language_skills')
+    tool = models.ForeignKey(Tools, on_delete=models.CASCADE, related_name='tool_skills')
+    database = models.ForeignKey(Databases, on_delete=models.CASCADE, related_name='database_skills')
+    framework = models.ForeignKey(Frameworks, on_delete=models.CASCADE, related_name='framework_skills')
 
 class MediaLinks(models.Model):
     email = models.URLField()
