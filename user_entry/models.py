@@ -5,7 +5,7 @@ from django.utils.text import slugify
 class userinfo(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=15, null=False, blank=False)
     description = models.TextField(max_length = 500)
     date_of_birth = models.DateField()
 
@@ -16,7 +16,7 @@ class ProgLanguage(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
 class OtherLanguage(models.Model):
@@ -25,7 +25,7 @@ class OtherLanguage(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
 class Tools(models.Model):
@@ -34,7 +34,7 @@ class Tools(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
 class Databases(models.Model):
@@ -43,7 +43,7 @@ class Databases(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
 class Frameworks(models.Model):
@@ -52,7 +52,7 @@ class Frameworks(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
 class Skills(models.Model):
