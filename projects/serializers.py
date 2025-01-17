@@ -13,4 +13,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 class ContactFormSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100)
     email = serializers.EmailField()
+    title = serializers.CharField(max_length=100)
     message = serializers.CharField()
+    phone = serializers.CharField(max_length=15, required=False)
+    

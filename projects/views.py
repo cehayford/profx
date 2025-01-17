@@ -67,13 +67,17 @@ class contactFormView(APIView):
         if serializer.is_valid():
             name = serializer.validated_data['name']
             email = serializer.validated_data['email']
+            title = serializer.validated_data['title']
+            phone = serializer.validated_data['phone']
             message = serializer.validated_data['message']
             try:
                 send_mail(
                     f"Message from {name}",
+                    title,
                     message,
                     email,
                     ['your_email@example.com'],
+                    phone,
                     fail_silently=False,
                 )
                 return Response({'message': 'Email sent successfully'}, status=HTTP_200_OK)
