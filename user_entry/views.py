@@ -3,7 +3,6 @@ from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_400_BAD_
 from rest_framework.response import Response
 from .serializers import MedialinksSerializer, UserinfoSerializer, SkillsSerializer
 from .models import MediaLinks, userinfo, Skills
-from re_vert import *
 
 # Create your views here.
 class UserinfoView(APIView):
