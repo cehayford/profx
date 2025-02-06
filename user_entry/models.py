@@ -5,7 +5,7 @@ from django.utils.text import slugify
 class userinfo(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=15, null=False, blank=False)
     description = models.TextField(max_length = 500)
     date_of_birth = models.DateField()
 
@@ -14,9 +14,12 @@ class ProgLanguage(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
 
+    def __str__(self):
+        return self.name
+    
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
 class OtherLanguage(models.Model):
@@ -25,42 +28,51 @@ class OtherLanguage(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
 class Tools(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
-
+    
+    def __str__(self):
+        return self.name
+    
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
 class Databases(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
 
+    def __str__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
 class Frameworks(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
 
+    def __str__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
 class Skills(models.Model):
-    language = models.ForeignKey(ProgLanguage, on_delete=models.CASCADE, related_name='skills')
-    other_language = models.ForeignKey(OtherLanguage, on_delete=models.CASCADE, related_name='skills')
-    tool = models.ForeignKey(Tools, on_delete=models.CASCADE, related_name='skills')
-    database = models.ForeignKey(Databases, on_delete=models.CASCADE, related_name='skills')
-    framework = models.ForeignKey(Frameworks, on_delete=models.CASCADE, related_name='skills')
+    language = models.ForeignKey(ProgLanguage, on_delete=models.CASCADE, related_name='prog_language_skills')
+    other_language = models.ForeignKey(OtherLanguage, on_delete=models.CASCADE, related_name='other_language_skills')
+    tool = models.ForeignKey(Tools, on_delete=models.CASCADE, related_name='tool_skills')
+    database = models.ForeignKey(Databases, on_delete=models.CASCADE, related_name='database_skills')
+    framework = models.ForeignKey(Frameworks, on_delete=models.CASCADE, related_name='framework_skills')
 
 class MediaLinks(models.Model):
     email = models.URLField()

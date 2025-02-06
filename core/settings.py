@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     # 'pillow',
     #projects app
     'projects',
-    'user_entry'
+    'user_entry',
 ]
 
 MIDDLEWARE = [

@@ -20,12 +20,12 @@ class OtherLanguageSerializer(serializers.ModelSerializer):
 class ToolsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tools
-        fields = '__all__'
+        fields = '__all__' 
 
 class DatabasesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Databases
-        fields = '__all__'
+        fields = '__all__' 
 
 class FrameworksSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,7 +36,7 @@ class SkillsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skills
         fields = '__all__'
-
+        depth = 1
 
 class MedialinksSerializer(serializers.ModelSerializer):
     class Meta:
