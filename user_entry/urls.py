@@ -1,6 +1,6 @@
 from django.urls import path
+from .views import CreateMediaLink, UpdateMediaLink, GetMediaLinks, UserinfoView, SkillsView
 from .views import *
-
 
 urlpatterns = [
     path('userinfo/', UserinfoView.as_view(), name='userinfo'),
