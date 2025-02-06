@@ -1,8 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.status import HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST
 from rest_framework.response import Response
-from .serializers import *
-from .models import MediaLinks, userinfo, Skills, ProgLanguage, OtherLanguage, Tools, Databases, Frameworks
+from .serializers import MedialinksSerializer, UserinfoSerializer, SkillsSerializer
+from .models import MediaLinks, userinfo, Skills
+from re_vert import *
 
 # Create your views here.
 class UserinfoView(APIView):
@@ -131,4 +132,32 @@ class UpdateMediaLink(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response({'message': 'Media link updated successfully'}, status=HTTP_200_OK)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+class UserinfoView(APIView):
+    def get(self, request):
+        users = userinfo.objects.all()
+        serializer = UserinfoSerializer(users, many=True)
+        return Response(serializer.data, status=HTTP_200_OK)
+
+    def post(self, request):
+        serializer = UserinfoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'User info created successfully'}, status=HTTP_200_OK)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+
+
+class SkillsView(APIView):
+    def get(self, request):
+        skills = Skills.objects.all()
+        serializer = SkillsSerializer(skills, many=True)
+        return Response(serializer.data, status=HTTP_200_OK)
+
+    def post(self, request):
+        serializer = SkillsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Skill created successfully'}, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
